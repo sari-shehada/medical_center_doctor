@@ -11,7 +11,6 @@ class SnackBarService {
     Get.rawSnackbar(
       icon: icon,
       message: message,
-      maxWidth: Get.mediaQuery.size.width * .4,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
       backgroundColor: backColor,

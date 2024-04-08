@@ -135,6 +135,15 @@ class HttpService {
       BaseOptions(
         method: 'POST',
         baseUrl: baseUrl,
+        validateStatus: (status) {
+          if (status == null) {
+            return true;
+          }
+          if (status == 400 || (status > 199 && status < 300)) {
+            return true;
+          }
+          return false;
+        },
         headers: {
           // 'Content-Type': 'multipart/form-data',
           // 'Cache-Control': 'max-age=0',

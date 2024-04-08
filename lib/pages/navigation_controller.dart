@@ -24,9 +24,14 @@ abstract class NavigationController {
 
   static Future<void> toLoginPage({
     bool offAll = true,
+    bool isUserRejected = false,
   }) async {
     if (offAll) {
-      Get.offAll(() => const LoginPage());
+      Get.offAll(
+        () => LoginPage(
+          isUserRejected: isUserRejected,
+        ),
+      );
       return;
     }
     Get.to(() => const LoginPage());

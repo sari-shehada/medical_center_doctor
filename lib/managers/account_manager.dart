@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
 import 'package:medical_center_doctor/models/doctor_info.dart';
-import 'package:medical_center_doctor/pages/login_page/login_page.dart';
 import 'package:medical_center_doctor/pages/navigation_controller.dart';
 
 import '../core/exceptions/not_found_exception.dart';
@@ -30,10 +28,9 @@ class AccountManager {
       return instance;
     } on NotFoundException catch (_) {
       instance = AccountManager._(user: null, isLoggedIn: false);
-      Get.offAll(
-        const LoginPage(),
+      NavigationController.toLoginPage(
+        isUserRejected: true,
       );
-      //TODO:
       return instance;
     }
   }

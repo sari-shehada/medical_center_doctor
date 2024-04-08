@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:medical_center_doctor/pages/login_page/dialogs/doctor_rejected_dialog.dart';
 import '../../managers/account_manager.dart';
 import '../../models/doctor_info.dart';
 import '../navigation_controller.dart';
@@ -16,8 +17,12 @@ import '../../core/ui_utils/text_fields/custom_text_field.dart';
 import 'models/login_form.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({
+    super.key,
+    this.isUserRejected = false,
+  });
 
+  final bool isUserRejected;
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -26,8 +31,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   Rx<CustomButtonStatus> loginButtonStatus = CustomButtonStatus.enabled.obs;
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        if (widget.isUserRejected) {
+          Get.dialog(
+            const DoctorRejectedDialog(),
+          );
+        }
+      },
+    );
     return Scaffold(
       body: SizedBox.expand(
         child: ListView(
@@ -111,11 +126,13 @@ class _LoginPageState extends State<LoginPage> {
       );
       var decodedResult = jsonDecode(requestResult);
       if (decodedResult == false) {
-        SnackBarService.showErrorSnackbar('معلومات تسجيل دخول غير صحيحة');
+        SnackBarService.showErrorSnackbar(
+          'معلومات تسجيل دخول غير صحيحة',
+        );
         return;
       }
       DoctorInfo userInfo = DoctorInfo.fromMap(decodedResult);
-      AccountManager.instance.login(userInfo);
+      await AccountManager.instance.login(userInfo);
       NavigationController.navigateLoggedInUser();
     } finally {
       loginButtonStatus.value = CustomButtonStatus.enabled;

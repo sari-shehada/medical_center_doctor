@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_center_doctor/pages/new_medical_cases_page/new_medical_cases_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -12,7 +13,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    tabController = TabController(vsync: this, length: 3);
+    tabController = TabController(vsync: this, length: 2);
     super.initState();
   }
 
@@ -30,8 +31,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           controller: tabController,
           children: const [
             SizedBox(),
-            SizedBox(),
-            SizedBox(),
+            NewMedicalCasesPage(),
           ],
         ),
       ),
@@ -43,19 +43,13 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             icon: Icon(
               Icons.home,
             ),
-            label: 'الرئيسية',
+            label: 'الحالات التي أشرف عليها',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.history,
             ),
-            label: 'سجل التشخيصات',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat,
-            ),
-            label: 'الحالات الطبية',
+            label: 'حالات طبية جديدة',
           ),
         ],
       ),

@@ -5,6 +5,10 @@ extension DateTimeExtensions on DateTime {
   String getDayOfWeekAsString() {
     return dayOfWeek[weekday]!;
   }
+
+  int getAge() {
+    return DateTime.now().toUtc().difference(this).inDays ~/ 365;
+  }
 }
 
 Map<int, String> dayOfWeek = {

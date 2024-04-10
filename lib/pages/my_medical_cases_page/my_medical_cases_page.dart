@@ -3,22 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_center_doctor/core/services/http_service.dart';
 import 'package:medical_center_doctor/core/ui_utils/spacing_utils.dart';
 import 'package:medical_center_doctor/core/widgets/custom_future_builder.dart';
+import 'package:medical_center_doctor/managers/account_manager.dart';
 import 'package:medical_center_doctor/pages/new_medical_cases_page/models/medical_case_details.dart';
 import 'package:medical_center_doctor/pages/new_medical_cases_page/widgets/new_medical_case_card.dart';
 
-class NewMedicalCasesPage extends StatefulWidget {
-  const NewMedicalCasesPage({super.key});
+class MyMedicalCasesPage extends StatefulWidget {
+  const MyMedicalCasesPage({super.key});
 
   @override
-  State<NewMedicalCasesPage> createState() => _NewMedicalCasesPageState();
+  State<MyMedicalCasesPage> createState() => _MyMedicalCasesPageState();
 }
 
-class _NewMedicalCasesPageState extends State<NewMedicalCasesPage> {
+class _MyMedicalCasesPageState extends State<MyMedicalCasesPage> {
   late Future<List<MedicalCaseDetails>> newMedicalCases;
 
   @override
   void initState() {
-    newMedicalCases = getNewMedicalCases();
+    newMedicalCases = getMyMedicalCases();
     super.initState();
   }
 
@@ -60,15 +61,16 @@ class _NewMedicalCasesPageState extends State<NewMedicalCasesPage> {
     );
   }
 
-  Future<List<MedicalCaseDetails>> getNewMedicalCases() async {
+  Future<List<MedicalCaseDetails>> getMyMedicalCases() async {
+    int docId = AccountManager.instance.user!.id;
     return await HttpService.parsedMultiGet(
-      endPoint: 'medicalCases/',
+      endPoint: 'doctors/$docId/medicalCases/',
       mapper: MedicalCaseDetails.fromMap,
     );
   }
 
   void updateList() {
-    newMedicalCases = getNewMedicalCases();
+    newMedicalCases = getMyMedicalCases();
     setState(() {});
   }
 }

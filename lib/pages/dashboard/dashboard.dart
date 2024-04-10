@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_center_doctor/pages/my_medical_cases_page/my_medical_cases_page.dart';
 import 'package:medical_center_doctor/pages/new_medical_cases_page/new_medical_cases_page.dart';
 
 class Dashboard extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           physics: const NeverScrollableScrollPhysics(),
           controller: tabController,
           children: const [
-            SizedBox(),
+            MyMedicalCasesPage(),
             NewMedicalCasesPage(),
           ],
         ),

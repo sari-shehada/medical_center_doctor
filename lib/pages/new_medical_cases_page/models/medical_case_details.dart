@@ -6,31 +6,36 @@ import 'package:flutter/foundation.dart';
 import 'package:medical_center_doctor/models/disease.dart';
 import 'package:medical_center_doctor/models/medical_case.dart';
 import 'package:medical_center_doctor/models/patient_diagnosis.dart';
+import 'package:medical_center_doctor/models/patient_info.dart';
 import 'package:medical_center_doctor/models/symptom.dart';
 
-class NewMedicalCase {
+class MedicalCaseDetails {
   final MedicalCase medicalCase;
   final PatientDiagnosis patientDiagnosis;
   final Disease disease;
   final List<Symptom> symptoms;
-  NewMedicalCase({
+  final PatientInfo patient;
+  MedicalCaseDetails({
     required this.medicalCase,
     required this.patientDiagnosis,
     required this.disease,
     required this.symptoms,
+    required this.patient,
   });
 
-  NewMedicalCase copyWith({
+  MedicalCaseDetails copyWith({
     MedicalCase? medicalCase,
     PatientDiagnosis? patientDiagnosis,
     Disease? disease,
     List<Symptom>? symptoms,
+    PatientInfo? patient,
   }) {
-    return NewMedicalCase(
+    return MedicalCaseDetails(
       medicalCase: medicalCase ?? this.medicalCase,
       patientDiagnosis: patientDiagnosis ?? this.patientDiagnosis,
       disease: disease ?? this.disease,
       symptoms: symptoms ?? this.symptoms,
+      patient: patient ?? this.patient,
     );
   }
 
@@ -40,11 +45,12 @@ class NewMedicalCase {
       'patientDiagnosis': patientDiagnosis.toMap(),
       'disease': disease.toMap(),
       'symptoms': symptoms.map((x) => x.toMap()).toList(),
+      'patient': patient.toMap(),
     };
   }
 
-  factory NewMedicalCase.fromMap(Map<String, dynamic> map) {
-    return NewMedicalCase(
+  factory MedicalCaseDetails.fromMap(Map<String, dynamic> map) {
+    return MedicalCaseDetails(
       medicalCase:
           MedicalCase.fromMap(map['medicalCase'] as Map<String, dynamic>),
       patientDiagnosis: PatientDiagnosis.fromMap(
@@ -55,27 +61,29 @@ class NewMedicalCase {
           (x) => Symptom.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      patient: PatientInfo.fromMap(map['patient'] as Map<String, dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory NewMedicalCase.fromJson(String source) =>
-      NewMedicalCase.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MedicalCaseDetails.fromJson(String source) =>
+      MedicalCaseDetails.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'NewMedicalCase(medicalCase: $medicalCase, patientDiagnosis: $patientDiagnosis, disease: $disease, symptoms: $symptoms)';
+    return 'NewMedicalCase(medicalCase: $medicalCase, patientDiagnosis: $patientDiagnosis, disease: $disease, symptoms: $symptoms, patient: $patient)';
   }
 
   @override
-  bool operator ==(covariant NewMedicalCase other) {
+  bool operator ==(covariant MedicalCaseDetails other) {
     if (identical(this, other)) return true;
 
     return other.medicalCase == medicalCase &&
         other.patientDiagnosis == patientDiagnosis &&
         other.disease == disease &&
-        listEquals(other.symptoms, symptoms);
+        listEquals(other.symptoms, symptoms) &&
+        other.patient == patient;
   }
 
   @override
@@ -83,6 +91,7 @@ class NewMedicalCase {
     return medicalCase.hashCode ^
         patientDiagnosis.hashCode ^
         disease.hashCode ^
-        symptoms.hashCode;
+        symptoms.hashCode ^
+        patient.hashCode;
   }
 }

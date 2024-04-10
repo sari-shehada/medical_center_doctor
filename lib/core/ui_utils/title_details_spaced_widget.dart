@@ -23,12 +23,13 @@ class TitleDetailsSpacedWidget extends StatelessWidget {
           Icon(
             icon,
             color: Colors.grey.shade700,
+            size: 20.sp,
           ),
           AddHorizontalSpacing(value: 6.w),
           Text(
             title,
             style: TextStyle(
-              fontSize: 20.sp,
+              fontSize: 16.sp,
               color: Colors.grey.shade700,
             ),
           ),
@@ -36,7 +37,7 @@ class TitleDetailsSpacedWidget extends StatelessWidget {
           Text(
             details,
             style: TextStyle(
-              fontSize: 20.sp,
+              fontSize: 16.sp,
               color: secondary,
             ),
           ),

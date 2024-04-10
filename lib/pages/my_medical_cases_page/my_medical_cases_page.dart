@@ -25,39 +25,30 @@ class _MyMedicalCasesPageState extends State<MyMedicalCasesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AddVerticalSpacing(
-          value: MediaQuery.paddingOf(context).top,
-        ),
-        Expanded(
-          child: CustomFutureBuilder(
-            future: newMedicalCases,
-            builder: (context, cases) {
-              return RefreshIndicator(
-                onRefresh: () async => updateList(),
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 20.h,
-                  ),
-                  itemCount: cases.length,
-                  itemBuilder: (context, index) {
-                    return NewMedicalCaseCard(
-                      medicalCase: cases[index],
-                      refreshListCallback: () => updateList(),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      AddVerticalSpacing(
-                    value: 10.h,
-                  ),
-                ),
+    return CustomFutureBuilder(
+      future: newMedicalCases,
+      builder: (context, cases) {
+        return RefreshIndicator(
+          onRefresh: () async => updateList(),
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+              vertical: 20.h,
+            ),
+            itemCount: cases.length,
+            itemBuilder: (context, index) {
+              return NewMedicalCaseCard(
+                medicalCase: cases[index],
+                refreshListCallback: () => updateList(),
               );
             },
+            separatorBuilder: (BuildContext context, int index) =>
+                AddVerticalSpacing(
+              value: 10.h,
+            ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 

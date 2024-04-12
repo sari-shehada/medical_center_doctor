@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'config/string_constants.dart';
+import 'config/constants/string_constants.dart';
 import 'config/theme/app_theme.dart';
 import 'pages/loader_page/loader_page.dart';
 

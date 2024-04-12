@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:medical_center_doctor/config/map_constants.dart';
+import 'package:medical_center_doctor/config/constants/map_constants.dart';
 
 class MedicalCase {
   final int id;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_center_doctor/config/string_constants.dart';
+import 'package:medical_center_doctor/config/constants/string_constants.dart';
 import 'package:medical_center_doctor/managers/account_manager.dart';
 import 'package:medical_center_doctor/pages/navigation_controller.dart';
 import '../../core/ui_utils/app_logo_widget.dart';

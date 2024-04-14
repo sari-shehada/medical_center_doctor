@@ -108,9 +108,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     color: primaryColor,
                   ),
                 ),
+                clipBehavior: Clip.hardEdge,
                 child: InkWell(
                   onTap: () async {
-                    if (await form.pickMedicineImage()) {
+                    if (await form.pickCertificateImage()) {
                       setState(() {});
                     }
                   },

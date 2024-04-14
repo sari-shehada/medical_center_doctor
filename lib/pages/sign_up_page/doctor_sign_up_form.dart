@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:medical_center_doctor/pages/sign_up_page/doctor_sign_up_request.dart';
 
@@ -78,17 +78,15 @@ class DoctorSignUpForm {
     }
   }
 
-  Future<bool> pickMedicineImage() async {
-    FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowMultiple: false,
+  Future<bool> pickCertificateImage() async {
+    XFile? filePickerResult = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
     );
     if (filePickerResult == null) {
       return false;
     }
-    var file = filePickerResult.files.first;
-    certificateImage = File(file.path!);
-    certificateImageExtension = file.extension;
+    certificateImage = File(filePickerResult.path);
+    certificateImageExtension = filePickerResult.path.split('.').last;
     return true;
   }
 }

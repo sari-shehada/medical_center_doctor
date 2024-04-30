@@ -108,6 +108,7 @@ class _MedicalCaseOptionsBottomSheetState
                           onTap: () => Get.to(
                             MedicalCaseDetailsPage(
                               medicalCaseDetails: widget.caseDetails,
+                              cameFromChatPage: true,
                             ),
                           ),
                           title: const Text('عرض معلومات الحالة'),

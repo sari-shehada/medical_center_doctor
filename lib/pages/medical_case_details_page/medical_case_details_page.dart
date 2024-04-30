@@ -11,17 +11,20 @@ import 'package:medical_center_doctor/core/ui_utils/gender_icon_widget.dart';
 import 'package:medical_center_doctor/core/ui_utils/spacing_utils.dart';
 import 'package:medical_center_doctor/core/ui_utils/title_details_spaced_widget.dart';
 import 'package:medical_center_doctor/managers/account_manager.dart';
+import 'package:medical_center_doctor/managers/medical_cases_manager.dart';
 import 'package:medical_center_doctor/models/symptom.dart';
+import 'package:medical_center_doctor/pages/medical_case_messages_page/medical_case_messages_page.dart';
 import 'package:medical_center_doctor/pages/new_medical_cases_page/models/medical_case_details.dart';
 
 class MedicalCaseDetailsPage extends StatefulWidget {
   const MedicalCaseDetailsPage({
     super.key,
     required this.medicalCaseDetails,
+    this.cameFromChatPage = false,
   });
 
   final MedicalCaseDetails medicalCaseDetails;
-
+  final bool cameFromChatPage;
   @override
   State<MedicalCaseDetailsPage> createState() => _MedicalCaseDetailsPageState();
 }
@@ -165,7 +168,17 @@ class _MedicalCaseDetailsPageState extends State<MedicalCaseDetailsPage> {
                     }
                     return CustomFilledButton(
                       height: 50.h,
-                      onTap: () {},
+                      onTap: () {
+                        if (widget.cameFromChatPage) {
+                          Get.back();
+                          return;
+                        }
+                        Get.to(
+                          () => MedicalCaseChatPage(
+                            medicalCaseDetails: medicalCaseDetails,
+                          ),
+                        );
+                      },
                       child: 'عرض الرسائل',
                     );
                   },
@@ -192,6 +205,7 @@ class _MedicalCaseDetailsPageState extends State<MedicalCaseDetailsPage> {
       );
       if (result.statusCode == 200) {
         setMedicalCaseAsTakenBy(isTakenByMe: true);
+        MedicalCasesManager.instance.updateList();
         return;
       }
       if (result.statusCode == 400) {

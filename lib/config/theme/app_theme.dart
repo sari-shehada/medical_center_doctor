@@ -11,7 +11,7 @@ ThemeData get lightTheme => ThemeData(
         primary: primaryColor,
         primaryContainer: primaryContainer,
         onPrimary: onPrimary,
-        secondary: secondary,
+        secondary: secondaryColor,
         secondaryContainer: secondaryContainer,
         onSecondary: onPrimary,
         error: error,

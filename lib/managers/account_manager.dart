@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:medical_center_doctor/models/doctor_info.dart';
 import 'package:medical_center_doctor/pages/navigation_controller.dart';
 
@@ -5,7 +6,7 @@ import '../core/exceptions/not_found_exception.dart';
 import '../core/services/http_service.dart';
 import '../core/services/shared_prefs_service.dart';
 
-class AccountManager {
+class AccountManager with ChangeNotifier {
   AccountManager._({
     this.user,
     required this.isLoggedIn,
@@ -39,6 +40,7 @@ class AccountManager {
     await _saveUserIdToLocalStorage(userInfo.id);
     user = userInfo;
     isLoggedIn = true;
+    notifyListeners();
   }
 
   static Future<DoctorInfo> _getDoctorInfo(int id) async {
@@ -60,9 +62,10 @@ class AccountManager {
   }
 
   Future<void> logout() async {
-    SharedPreferencesService.instance.plugin.remove(
-      'userId',
-    );
+    await SharedPreferencesService.instance.plugin.remove('userId');
+    user = null;
+    isLoggedIn = false;
     NavigationController.toLoginPage();
+    notifyListeners();
   }
 }

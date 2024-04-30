@@ -38,7 +38,7 @@ class TitleDetailsSpacedWidget extends StatelessWidget {
             details,
             style: TextStyle(
               fontSize: 16.sp,
-              color: secondary,
+              color: secondaryColor,
             ),
           ),
         ],
